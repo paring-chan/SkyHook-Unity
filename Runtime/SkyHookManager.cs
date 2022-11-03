@@ -98,7 +98,7 @@ namespace SkyHook
 
         private void Run()
         {
-            if (requireFocus)
+            if (RequireFocus)
             {
                 IsFocused = Application.isFocused;
             }
