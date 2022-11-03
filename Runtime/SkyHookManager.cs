@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SkyHook
 {
@@ -11,6 +12,8 @@ namespace SkyHook
     public bool requireFocus = true;
 
     private bool _started;
+
+    public static UnityEvent<SkyHookEvent> KeyUpdated = new();
 
     public static SkyHookManager Instance
     {
@@ -30,7 +33,7 @@ namespace SkyHook
 
     private void HookCallback(SkyHookEvent ev)
     {
-      Debug.Log($"{ev.Type} {ev.Key} {ev.Time}");
+      KeyUpdated.Invoke(ev);
     }
 
     private void StartHook()
