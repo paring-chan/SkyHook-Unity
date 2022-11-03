@@ -1,6 +1,6 @@
 {
     "name": "SkyHook.Unity",
-    "rootNamespace": "",
+    "rootNamespace": "SkyHook",
     "references": [],
     "includePlatforms": [
         "Editor",
