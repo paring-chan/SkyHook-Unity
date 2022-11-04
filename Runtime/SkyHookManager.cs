@@ -75,6 +75,10 @@ namespace SkyHook
 
                 _started = true;
                 started = true;
+
+                while (_started)
+                {
+                }
             }).Start();
 
             while (!started && exception == null)
@@ -97,8 +101,6 @@ namespace SkyHook
             {
                 throw new SkyHookException(result);
             }
-
-            _started = false;
 
             _started = false;
         }
