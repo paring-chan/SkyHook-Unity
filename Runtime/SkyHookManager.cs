@@ -59,16 +59,32 @@ namespace SkyHook
 
         private void _StartHook()
         {
-            if (_started) return;
-            
-            var result = SkyHookNative.StartHook(HookCallback);
+            var started = false;
+            Exception exception = null;
 
-            if (result != null)
+            new Thread(() =>
             {
-                throw new SkyHookException(result);
+                if (_started) return;
+
+                var result = SkyHookNative.StartHook(HookCallback);
+
+                if (result != null)
+                {
+                    exception = new SkyHookException(result);
+                }
+
+                _started = true;
+                started = true;
+            }).Start();
+
+            while (!started && exception == null)
+            {
             }
 
-            _started = true;
+            if (exception != null)
+            {
+                throw exception;
+            }
         }
 
         private void _StopHook()
