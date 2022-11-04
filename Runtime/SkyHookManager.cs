@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -54,8 +57,10 @@ namespace SkyHook
             KeyUpdated.Invoke(ev);
         }
 
-        private void StartHook()
+        private void _StartHook()
         {
+            if (_started) return;
+            
             var result = SkyHookNative.StartHook(HookCallback);
 
             if (result != null)
@@ -66,7 +71,7 @@ namespace SkyHook
             _started = true;
         }
 
-        private void StopHook()
+        private void _StopHook()
         {
             if (!_started) return;
 
@@ -78,22 +83,23 @@ namespace SkyHook
             }
 
             _started = false;
+
+            _started = false;
         }
 
-        public static void Start()
+        public static void StartHook()
         {
-            Instance.StartHook();
+            Instance._StartHook();
         }
 
-        public static void Stop()
+        public static void StopHook()
         {
-            Instance.StopHook();
+            Instance._StopHook();
         }
 
         private void OnDestroy()
         {
-            Debug.Log("Destroy");
-            StopHook();
+            _StopHook();
         }
 
         private void Update()
