@@ -1,6 +1,6 @@
 {
     "name": "SkyHook.Unity.Editor",
-    "rootNamespace": "SkyHook.Editor",
+    "rootNamespace": "SkyHook",
     "references": [
         "GUID:5277a9c527b33a210bfa8bb54a667bf4"
     ],
