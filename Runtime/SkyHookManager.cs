@@ -17,7 +17,7 @@ namespace SkyHook
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public static bool RequireFocus = true;
+        public bool requireFocus = true;
 
         public bool isHookActive;
 
@@ -49,7 +49,7 @@ namespace SkyHook
 
         private void HookCallback(SkyHookEvent ev)
         {
-            if (RequireFocus && !_isFocused)
+            if (requireFocus && !_isFocused)
             {
                 return;
             }
@@ -122,7 +122,7 @@ namespace SkyHook
 
         private void Update()
         {
-            if (RequireFocus)
+            if (requireFocus)
             {
                 _isFocused = Application.isFocused;
             }
