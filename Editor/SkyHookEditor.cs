@@ -18,7 +18,7 @@ namespace SkyHook.Editor
             
             manager.requireFocus = EditorGUILayout.Toggle("Require Focus", manager.requireFocus);
             
-            GUI.enabled = manager.requireFocus;
+            GUI.enabled = false;
             SkyHookManager.isFocused = EditorGUILayout.Toggle("Focus", SkyHookManager.isFocused);
             GUI.enabled = true;
 
