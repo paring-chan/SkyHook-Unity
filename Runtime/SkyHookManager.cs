@@ -19,7 +19,7 @@ namespace SkyHook
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public static bool RequireFocus = true;
 
-        private bool _started;
+        public bool isHookActive;
 
         /// <summary>
         /// The key updated event data
@@ -64,7 +64,7 @@ namespace SkyHook
 
             new Thread(() =>
             {
-                if (_started) return;
+                if (isHookActive) return;
 
                 var result = SkyHookNative.StartHook(HookCallback);
 
@@ -73,10 +73,10 @@ namespace SkyHook
                     exception = new SkyHookException(result);
                 }
 
-                _started = true;
+                isHookActive = true;
                 started = true;
 
-                while (_started)
+                while (isHookActive)
                 {
                 }
             }).Start();
@@ -93,7 +93,7 @@ namespace SkyHook
 
         private void _StopHook()
         {
-            if (!_started) return;
+            if (!isHookActive) return;
 
             var result = SkyHookNative.StopHook();
 
@@ -102,7 +102,7 @@ namespace SkyHook
                 throw new SkyHookException(result);
             }
 
-            _started = false;
+            isHookActive = false;
         }
 
         public static void StartHook()
