@@ -22,6 +22,13 @@ namespace SkyHook.Editor
             EditorGUILayout.Toggle("Focused", SkyHookManager.IsFocused);
             GUI.enabled = true;
 
+            GUI.enabled = EditorApplication.isPlaying;
+            if (GUILayout.Button(manager.isHookActive ? "Stop Hook" : "Start Hook"))
+            {
+                if(manager.isHookActive) SkyHookManager.StopHook();
+                else SkyHookManager.StartHook();
+            }
+            GUI.enabled = true;
         }
     }
 }
