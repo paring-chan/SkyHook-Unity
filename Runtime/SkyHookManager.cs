@@ -49,7 +49,7 @@ namespace SkyHook
 
         private void HookCallback(SkyHookEvent ev)
         {
-            if (requireFocus && !IsFocused)
+            if (requireFocus && !IsFocused && ev.Type == EventType.KeyPressed)
             {
                 return;
             }
