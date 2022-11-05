@@ -28,7 +28,7 @@ namespace SkyHook
         public static readonly UnityEvent<SkyHookEvent> KeyUpdated = new();
 
         /// <summary>
-        /// The instance of sky hook manager. The instance will be crated if it does not exist
+        /// The instance of sky hook manager. The instance will be created if it does not exist
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         public static SkyHookManager Instance
