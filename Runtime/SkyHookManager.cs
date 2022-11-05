@@ -10,7 +10,7 @@ namespace SkyHook
     {
         private static SkyHookManager _instance;
 
-        public static bool isFocused;
+        public static bool IsFocused;
 
         /// <summary>
         /// Whether or not the event will be received only if the game window is focused.
@@ -49,7 +49,7 @@ namespace SkyHook
 
         private void HookCallback(SkyHookEvent ev)
         {
-            if (requireFocus && !isFocused)
+            if (requireFocus && !IsFocused)
             {
                 return;
             }
@@ -124,9 +124,7 @@ namespace SkyHook
         {
             if (requireFocus)
             {
-                #if !UNITY_EDITOR
-                isFocused = Application.isFocused;
-                #endif
+                IsFocused = Application.isFocused;
             }
         }
     }

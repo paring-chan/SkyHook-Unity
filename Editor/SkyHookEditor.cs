@@ -13,13 +13,13 @@ namespace SkyHook.Editor
             SkyHookManager manager = (SkyHookManager)target;
             
             GUI.enabled = false;
-            EditorGUILayout.Toggle("Hook Started", manager.isHookActive);
+            EditorGUILayout.Toggle("Hook is running", manager.isHookActive);
             GUI.enabled = true;
             
-            manager.requireFocus = EditorGUILayout.Toggle("Require Focus", manager.requireFocus);
+            manager.requireFocus = EditorGUILayout.Toggle("Focus required", manager.requireFocus);
             
             GUI.enabled = false;
-            SkyHookManager.isFocused = EditorGUILayout.Toggle("Focus", SkyHookManager.isFocused);
+            EditorGUILayout.Toggle("Focused", SkyHookManager.IsFocused);
             GUI.enabled = true;
 
         }
