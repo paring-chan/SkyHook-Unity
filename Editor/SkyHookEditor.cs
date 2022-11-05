@@ -10,7 +10,7 @@ namespace SkyHook.Editor
     {
         public override void OnInspectorGUI()
         {
-            SkyHookManager manager = (SkyHookManager)target;
+            SkyHookManager manager = SkyHookManager.Instance;
             
             GUI.enabled = false;
             EditorGUILayout.Toggle("Hook is running", manager.isHookActive);
