@@ -3,16 +3,19 @@ using System.Runtime.InteropServices;
 
 namespace SkyHook
 {
+  /// <summary>
+  /// Recorded key updates from SkyHook.
+  /// </summary>
   [StructLayout(LayoutKind.Sequential)]
   [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
   public struct SkyHookEvent
   {
     /// <summary>
-    /// When the key was pressed.
+    /// When the key's state was updated.
     /// </summary>
     public readonly ulong Time;
     /// <summary>
-    /// The key is pressed or released.
+    /// Whether the key is pressed or released.
     /// </summary>
     public readonly EventType Type;
     /// <summary>
@@ -25,6 +28,9 @@ namespace SkyHook
     public readonly ushort Key;
   }
 
+  /// <summary>
+  /// The type of <see cref="SkyHookEvent"/>'s event.
+  /// </summary>
   public enum EventType
   {
     KeyPressed,

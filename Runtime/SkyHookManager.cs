@@ -1,15 +1,21 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace SkyHook
 {
+    /// <summary>
+    /// Manages SkyHook activity.
+    /// A "<see cref="GameObject.DontDestroyOnLoad"/>ed" instance will be created automatically upon use.
+    /// </summary>
     public class SkyHookManager : MonoBehaviour
     {
         private static SkyHookManager _instance;
 
+        /// <summary>
+        /// Whether this process is focused.
+        /// </summary>
         public static bool IsFocused;
 
         /// <summary>
@@ -20,6 +26,9 @@ namespace SkyHook
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public bool requireFocus = true;
 
+        /// <summary>
+        /// Whether the hook is active now.
+        /// </summary>
         public bool isHookActive;
 
         /// <summary>
