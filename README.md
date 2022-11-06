@@ -26,7 +26,7 @@ SkyHookManager.StopHook(); // Stop Hook, this is automatically called on exit
 > NOTE: SkyHook does **NOT** give the correct key code. So you can't know what key the user actually pressed.
 
 ```cs
-SkyHookMnager.KeyUpdated.AddListener(ev => {
+SkyHookManager.KeyUpdated.AddListener(ev => {
   // Your code
 });
 ```
