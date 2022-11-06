@@ -1,32 +1,32 @@
 # SkyHook-Unity
 
-SkyHook for Unity
+SkyHook for Unity.
 
 ## Installation
 
-1. Open package manager with `Window -> Package Manager`
-2. Press `+` button and find `Add package from git URL...`
-
+1. Open package manager with `Window -> Package Manager`.
+2. Click `+` button and find `Add package from git URL...`.
 ![Add package from git URL](images/tuto1.png)
-
-3. Enter `git+https://git.pikokr.dev/SkyHook/SkyHook-Unity.git` and press `Add` button
+3. Paste `git+https://git.pikokr.dev/SkyHook/SkyHook-Unity.git` and click `Add` button.
 
 ## Usage
 
-### Start and stop hook
+### Starting and stopping the hook
 
 ```cs
-SkyHookManager.StartHook(); // Start Hook
+SkyHookManager.StartHook(); // Starts the hook
 
-SkyHookManager.StopHook(); // Stop Hook, this is automatically called on exit
+SkyHookManager.StopHook(); // Stops the hook, this is automatically called on exit
 ```
 
-### Receive events
+### Receiving key events
 
-> NOTE: SkyHook does **NOT** give the correct key code. So you can't know what key the user actually pressed.
+> NOTE:
+> - `Label` field for labelling keys' names such as F11
+> - `Key` field is the raw key code from native module.
 
 ```cs
 SkyHookManager.KeyUpdated.AddListener(ev => {
-  // Your code
+    // Your code
 });
 ```
