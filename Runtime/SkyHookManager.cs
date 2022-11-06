@@ -13,7 +13,8 @@ namespace SkyHook
         public static bool IsFocused;
 
         /// <summary>
-        /// Whether or not the event will be received only if the game window is focused.
+        /// Whether or the event will be received only if the game window is focused.
+        /// Note that only down key events will be ignored.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
@@ -22,13 +23,15 @@ namespace SkyHook
         public bool isHookActive;
 
         /// <summary>
-        /// The key updated event data
+        /// Your callback for each key updated events.
+        /// Use <see cref="UnityEvent.AddListener"/> to register your callback.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         public static readonly UnityEvent<SkyHookEvent> KeyUpdated = new();
 
         /// <summary>
-        /// The instance of sky hook manager. The instance will be created if it does not exist
+        /// The instance of <see cref="SkyHookManager"/>.
+        /// A new instance will be created if it does not exist.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         public static SkyHookManager Instance
@@ -105,11 +108,17 @@ namespace SkyHook
             isHookActive = false;
         }
 
+        /// <summary>
+        /// Starts the native hook.
+        /// </summary>
         public static void StartHook()
         {
             Instance._StartHook();
         }
 
+        /// <summary>
+        /// Stops the native hook.
+        /// </summary>
         public static void StopHook()
         {
             Instance._StopHook();
