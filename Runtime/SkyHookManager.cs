@@ -41,12 +41,15 @@ namespace SkyHook
         /// <summary>
         /// The instance of <see cref="SkyHookManager"/>.
         /// A new instance will be created if it does not exist.
+        /// <br/>
+        /// This will return <c>null</c> if <see cref="Application.isPlaying"/> is <c>false</c>.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         public static SkyHookManager Instance
         {
             get
             {
+                if (!Application.isPlaying) return null;
                 if (_instance) return _instance;
 
                 var obj = new GameObject("SkyHook Manager");
@@ -119,17 +122,33 @@ namespace SkyHook
 
         /// <summary>
         /// Starts the native hook.
+        /// <br/>
+        /// This will only work if <see cref="Application.isPlaying"/> is <c>true</c>.
         /// </summary>
         public static void StartHook()
         {
+            if (!Application.isPlaying)
+            {
+                Debug.LogWarning("You may not call StartHook() if the application is not playing.");
+                return;
+            }
+            
             Instance._StartHook();
         }
 
         /// <summary>
         /// Stops the native hook.
+        /// <br/>
+        /// This will only work if <see cref="Application.isPlaying"/> is <c>true</c>.
         /// </summary>
         public static void StopHook()
         {
+            if (!Application.isPlaying)
+            {
+                Debug.LogWarning("You may not call StopHook() if the application is not playing.");
+                return;
+            }
+
             Instance._StopHook();
         }
 
