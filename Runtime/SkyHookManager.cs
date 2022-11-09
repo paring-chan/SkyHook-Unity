@@ -13,6 +13,8 @@ namespace SkyHook
     {
         private static SkyHookManager _instance;
 
+        private ManualResetEvent _mre;
+
         /// <summary>
         /// Whether this process is focused.
         /// </summary>
@@ -77,6 +79,8 @@ namespace SkyHook
             var started = false;
             Exception exception = null;
 
+            _mre = new(false);
+
             new Thread(() =>
             {
                 try
@@ -91,9 +95,7 @@ namespace SkyHook
                     isHookActive = true;
                     started = true;
 
-                    while (isHookActive)
-                    {
-                    }
+                    _mre.WaitOne();
                 }
                 catch (Exception e)
                 {
@@ -121,6 +123,11 @@ namespace SkyHook
                 throw new SkyHookException(result);
             }
 
+            if (_mre != null)
+            {
+                _mre.Set();
+            }
+
             isHookActive = false;
         }
 
@@ -136,7 +143,7 @@ namespace SkyHook
                 Debug.LogWarning("You may not call StartHook() if the application is not playing.");
                 return;
             }
-            
+
             Instance._StartHook();
         }
 
