@@ -81,8 +81,6 @@ namespace SkyHook
             {
                 try
                 {
-                    if (isHookActive) return;
-
                     var result = SkyHookNative.StartHook(HookCallback);
 
                     if (result != null)
@@ -116,8 +114,6 @@ namespace SkyHook
 
         private void _StopHook()
         {
-            if (!isHookActive) return;
-
             var result = SkyHookNative.StopHook();
 
             if (result != null)
