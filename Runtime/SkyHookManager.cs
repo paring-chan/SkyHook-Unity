@@ -79,20 +79,28 @@ namespace SkyHook
 
             new Thread(() =>
             {
-                if (isHookActive) return;
-
-                var result = SkyHookNative.StartHook(HookCallback);
-
-                if (result != null)
+                try
                 {
-                    exception = new SkyHookException(result);
+                    if (isHookActive) return;
+
+                    var result = SkyHookNative.StartHook(HookCallback);
+
+                    if (result != null)
+                    {
+                        exception = new SkyHookException(result);
+                    }
+
+                    isHookActive = true;
+                    started = true;
+
+                    while (isHookActive)
+                    {
+                    }
                 }
-
-                isHookActive = true;
-                started = true;
-
-                while (isHookActive)
+                catch (Exception e)
                 {
+                    exception = e;
+                    throw;
                 }
             }).Start();
 
