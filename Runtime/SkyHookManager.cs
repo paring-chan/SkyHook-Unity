@@ -40,6 +40,8 @@ namespace SkyHook
         // ReSharper disable once MemberCanBePrivate.Global
         public static readonly UnityEvent<SkyHookEvent> KeyUpdated = new();
 
+        private SkyHookNative.Callback _callback;
+
         /// <summary>
         /// The instance of <see cref="SkyHookManager"/>.
         /// A new instance will be created if it does not exist.
@@ -85,24 +87,32 @@ namespace SkyHook
             {
                 try
                 {
-                    var result = SkyHookNative.StartHook(HookCallback);
+                    _callback = HookCallback;
 
+                    var result = SkyHookNative.StartHook(_callback);
+                    
                     if (result != null)
                     {
                         exception = new SkyHookException(result);
                     }
-
+            
                     isHookActive = true;
                     started = true;
-
+            
                     _mre.WaitOne();
+                    
+                    Debug.Log("Thread ended");
                 }
                 catch (Exception e)
                 {
                     exception = e;
+                    Debug.LogError(e);
                     throw;
                 }
             }).Start();
+            
+            isHookActive = true;
+            started = true;
 
             while (!started && exception == null)
             {

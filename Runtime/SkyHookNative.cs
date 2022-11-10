@@ -10,6 +10,7 @@ namespace SkyHook
         /// <summary>
         /// The native callback handled by <see cref="SkyHookManager"/>.
         /// </summary>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void Callback(SkyHookEvent ev);
 
         private const string Lib = "skyhook";
