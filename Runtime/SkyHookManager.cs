@@ -175,7 +175,10 @@ namespace SkyHook
 
         private void OnDestroy()
         {
-            _StopHook();
+            if (isHookActive)
+            {
+                _StopHook();
+            }
         }
 
         private void Update()
