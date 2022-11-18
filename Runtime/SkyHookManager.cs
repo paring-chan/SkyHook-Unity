@@ -112,7 +112,6 @@ namespace SkyHook
             }).Start();
             
             isHookActive = true;
-            started = true;
 
             while (!started && exception == null)
             {
