@@ -11,9 +11,13 @@ namespace SkyHook
     public struct SkyHookEvent
     {
 		/// <summary>
-		/// When the key's state was updated.
+		/// When the key's state was updated(sec).
 		/// </summary>
-		public readonly ulong Time;
+		public readonly ulong TimeSec;
+		/// <summary>
+		/// When the key's state was updated(nsec).
+		/// </summary>
+		public readonly uint TimeNsec;
 		/// <summary>
 		/// Whether the key is pressed or released.
 		/// </summary>
