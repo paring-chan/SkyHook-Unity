@@ -13,7 +13,7 @@ namespace SkyHook
 		/// <summary>
 		/// Precise time of the key's state update in seconds.
 		/// </summary>
-		public readonly ulong TimeSec;
+		public readonly long TimeSec;
 		/// <summary>
 		/// Precise time of the key's state update but only contains nanoseconds.
 		/// </summary>
