@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
@@ -8,8 +9,13 @@ namespace SkyHook
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public struct SkyHookEvent
+    public readonly struct SkyHookEvent
     {
+	    /// <summary>
+	    /// Epoch ticks to append in <see cref="GetTimeInTicks"/>.
+	    /// </summary>
+	    private static readonly long EpochTicks = new DateTime(1970,  1, 1).Ticks;
+	    
 		/// <summary>
 		/// Precise time of the key's state update in seconds.
 		/// </summary>
@@ -30,6 +36,13 @@ namespace SkyHook
 		/// The key number that was pressed or released.
 		/// </summary>
 		public readonly ushort Key;
+
+		/// <summary>
+		/// Returns the sum of <see cref="TimeSec"/> and <see cref="TimeSubsecNano"/> in ticks.
+		/// </summary>
+		/// <returns>The sum of <see cref="TimeSec"/> and <see cref="TimeSubsecNano"/> in ticks.</returns>
+		public long GetTimeInTicks()
+			=> (TimeSec * 10000000) + (TimeSubsecNano / 100) + EpochTicks;
     }
 
     /// <summary>
