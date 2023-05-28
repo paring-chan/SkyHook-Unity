@@ -31,7 +31,7 @@ namespace SkyHook
         /// <summary>
         /// Whether the hook is active now.
         /// </summary>
-        public bool isHookActive;
+        public bool isHookActive => SkyHookNative.HookIsRunning();
 
         /// <summary>
         /// Your callback for each key updated events.
@@ -90,13 +90,12 @@ namespace SkyHook
                     _callback = HookCallback;
 
                     var result = SkyHookNative.StartHook(_callback);
-                    
+
                     if (result != null)
                     {
                         exception = new SkyHookException(result);
                     }
             
-                    isHookActive = true;
                     started = true;
             
                     _mre.WaitOne();
@@ -113,6 +112,7 @@ namespace SkyHook
             
             while (!started && exception == null)
             {
+                Thread.Yield();
             }
 
             if (exception != null)
@@ -134,8 +134,6 @@ namespace SkyHook
             {
                 _mre.Set();
             }
-
-            isHookActive = false;
         }
 
         /// <summary>

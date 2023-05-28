@@ -29,5 +29,12 @@ namespace SkyHook
         /// <returns><c>null</c> if no error, or an error message.</returns>
         [DllImport(Lib, EntryPoint = "stop_hook", CallingConvention = CallingConvention.Cdecl)]
         public static extern string StopHook();
+
+        /// <summary>
+        /// The native version of <see cref="SkyHookManager.StopHook"/> method handled by <see cref="SkyHookManager"/>.
+        /// </summary>
+        /// <returns><c>null</c> if no error, or an error message.</returns>
+        [DllImport(Lib, EntryPoint = "hook_is_running", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool HookIsRunning();
     }
 }
