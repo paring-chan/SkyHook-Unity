@@ -43,7 +43,6 @@ namespace SkyHook
         // ReSharper disable once MemberCanBePrivate.Global
         public static readonly UnityEvent<SkyHookEvent> KeyUpdated = new();
 
-        private SkyHookNative.Callback _callback;
 
         /// <summary>
         /// The instance of <see cref="SkyHookManager"/>.
@@ -95,7 +94,7 @@ namespace SkyHook
 
             _mre = new(false);
 
-            _handle = GCHandle.Alloc(this);
+            _handle = GCHandle.Alloc(this, GCHandleType.Pinned);
             var ptr = GCHandle.ToIntPtr(_handle.Value);
 
             SkyHookNative.SetContext(ptr);
