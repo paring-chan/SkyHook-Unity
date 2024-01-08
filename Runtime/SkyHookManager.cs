@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using AOT;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -68,6 +69,7 @@ namespace SkyHook
             }
         }
 
+        [MonoPInvokeCallback(typeof(SkyHookNative.Callback))]
         private static void NativeHookCallback(IntPtr context, SkyHookEvent ev)
         {
             if (context == IntPtr.Zero) return;
