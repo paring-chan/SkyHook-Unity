@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ namespace SkyHook
     {
         private static SkyHookManager _instance;
 
+        private GCHandle? _handle = null;
         private ManualResetEvent _mre;
 
         /// <summary>
@@ -66,6 +68,14 @@ namespace SkyHook
             }
         }
 
+        private static void NativeHookCallback(IntPtr context, SkyHookEvent ev)
+        {
+            if (context == IntPtr.Zero) return;
+            var handle = GCHandle.FromIntPtr(context);
+            var obj = (SkyHookManager)handle.Target;
+            obj.HookCallback(ev);
+        }
+
         private void HookCallback(SkyHookEvent ev)
         {
             if (requireFocus && !IsFocused && ev.Type == EventType.KeyPressed)
@@ -83,23 +93,26 @@ namespace SkyHook
 
             _mre = new(false);
 
+            _handle = GCHandle.Alloc(this);
+            var ptr = GCHandle.ToIntPtr(_handle.Value);
+
+            SkyHookNative.SetContext(ptr);
+
             new Thread(() =>
             {
                 try
                 {
-                    _callback = HookCallback;
-
-                    var result = SkyHookNative.StartHook(_callback);
+                    var result = SkyHookNative.StartHook(NativeHookCallback);
 
                     if (result != null)
                     {
                         exception = new SkyHookException(result);
                     }
-            
+
                     started = true;
-            
+
                     _mre.WaitOne();
-                    
+
                     Debug.Log("Thread ended");
                 }
                 catch (Exception e)
@@ -109,7 +122,7 @@ namespace SkyHook
                     throw;
                 }
             }).Start();
-            
+
             while (!started && exception == null)
             {
                 Thread.Yield();
@@ -124,6 +137,12 @@ namespace SkyHook
         private void _StopHook()
         {
             var result = SkyHookNative.StopHook();
+
+            if (_handle.HasValue)
+            {
+                _handle.Value.Free();
+                _handle = null;
+            }
 
             if (result != null)
             {

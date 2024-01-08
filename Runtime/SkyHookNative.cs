@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 
 namespace SkyHook
@@ -11,7 +12,7 @@ namespace SkyHook
         /// The native callback handled by <see cref="SkyHookManager"/>.
         /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void Callback(SkyHookEvent ev);
+        public delegate void Callback(IntPtr context, SkyHookEvent ev);
 
         private const string Lib = "skyhook";
 
@@ -36,5 +37,12 @@ namespace SkyHook
         /// <returns><c>null</c> if no error, or an error message.</returns>
         [DllImport(Lib, EntryPoint = "hook_is_running", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool HookIsRunning();
+
+        /// <summary>
+        /// Set context variable
+        /// </summary>
+        /// <param name="ptr"></param>
+        [DllImport(Lib, EntryPoint = "set_context", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetContext(IntPtr ptr);
     }
 }
